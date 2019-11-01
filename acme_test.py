@@ -27,7 +27,25 @@ class AcmeProductTests(unittest.TestCase):
         prod3 = Product('Product Three',price=10,weight=50,flammability = 1.1)
         self.assertEqual(prod3.explode(),'...BABOOM!!')
 
+class AcmeReportTests(unittest.TestCase):
+    def test_default_num_products(self):
+        """ Test the default number of products is being 30"""
+        self.assertEqual(len(generate_products()),30)
 
+    def test_legal_names(self):
+        """ Test the names of products are valid from the list """
+        ADJECTIVES = ['Awesome', 'Shiny', 'Impressive', 'Portable', 'Improved']
+        NOUNS = ['Anvil', 'Catapult', 'Disguise', 'Mousetrap', '???']
+        prod_list = generate_products()
+        names_list = []
+
+        for i in range(len(prod_list)):
+            names_list.append(prod_list[i].name)
+
+        for x in range(len(names_list)):
+            name_split = names_list[x].split()
+            self.assertIn(name_split[0],ADJECTIVES)
+            self.assertIn(name_split[1],NOUNS)
 
 if __name__ == '__main__':
     unittest.main()
